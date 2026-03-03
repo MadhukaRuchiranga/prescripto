@@ -2,8 +2,11 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const Navbar = () => {
   const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
+  const [token, setToken] = useState(true);
   return (
     <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
       <img src={assets.logo} alt="" className="w-44 cursor-pointer" />
@@ -26,12 +29,19 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className="flex items-center gap-4">
-        <button
-          onClick={() => navigate("/login")}
-          className="bg-[#5f6FFF] text-white px-8 py-3 rounded-full font-light hidden md:block"
-        >
-          Create Account
-        </button>
+        {token ? (
+          <div className="flex items-center gap-2 cursor-pointer group relative">
+            <img className="w-8 rounded-full" src={assets.profile_pic} alt="" />
+            <img className="w-2.5" src={assets.dropdown_icon} alt="" />
+          </div>
+        ) : (
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-[#5f6FFF] text-white px-8 py-3 rounded-full font-light hidden md:block"
+          >
+            Create Account
+          </button>
+        )}
       </div>
     </div>
   );
